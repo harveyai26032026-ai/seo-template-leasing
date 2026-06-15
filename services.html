@@ -22,6 +22,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
+    .nav-toggle{background:none;border:none;color:#fff;font-size:1.5rem;display:none;cursor:pointer;}
+    nav{display:flex;gap:1rem;}
+    @media(max-width:600px){
+      .site-header{flex-direction:column;align-items:flex-start}
+      .nav-toggle{display:block}
+      nav{display:none;flex-direction:column;gap:0.5rem}
+      nav.show{display:flex}
+    }
     :root { --clr-primary:#0066cc; --clr-accent:#ff6600; --clr-bg:#fff; --clr-text:#111; }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter',sans-serif;background:var(--clr-bg);color:var(--clr-text);line-height:1.6}
@@ -69,9 +77,10 @@ gtag('config', 'G-XXXXXXXXXX');
 <!-- SEO END -->
 
 <body>
-<header class="site-header">
+<header class="site-header" role="navigation" aria-label="Main navigation">
+  <button class="nav-toggle" aria-controls="primary-menu" aria-expanded="false">☰ Menu</button>
   <h1>Essendon Carpet & Upholstery Cleaning</h1>
-  <nav>
+  <nav id="primary-menu">
     <a href="/">Home</a>
     <a href="/services.html">Services</a>
     <a href="/contact.html">Contact</a>
@@ -94,6 +103,14 @@ gtag('config', 'G-XXXXXXXXXX');
 </main>
 <footer>
   © 2026 Essendon Carpet & Upholstery Cleaning – Melbourne, VIC – All rights reserved.
-</footer>
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('primary-menu');
+  toggle.addEventListener('click',()=>{
+    const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+    toggle.setAttribute('aria-expanded',!expanded);
+    nav.classList.toggle('show');
+  });
+</script>
 </body>
 </html>
